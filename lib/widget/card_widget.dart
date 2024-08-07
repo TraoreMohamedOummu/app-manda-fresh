@@ -20,13 +20,8 @@ class CardWidget extends StatelessWidget {
        borderRadius: BorderRadius.circular(10.0), // Rayons des coins de la bordure
       ),
       child: SizedBox(
-<<<<<<< HEAD
               width: 170,
               height: 170,
-=======
-              width: 210,
-              height: 200,
->>>>>>> 60f0577ad8062cc9cbaf293e5bb059a7c13557cd
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,

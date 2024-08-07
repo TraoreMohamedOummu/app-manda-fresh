@@ -1,8 +1,7 @@
-import 'package:app_manda_fresh/widget/cellule_widget.dart';
 import 'package:app_manda_fresh/widget/numero_produit.dart';
 import 'package:flutter/material.dart';
 
-class PageProduits extends StatefulWidget {
+class  PageProduits extends StatefulWidget {
   @override
   _PageProduitsState createState() => _PageProduitsState();
 }

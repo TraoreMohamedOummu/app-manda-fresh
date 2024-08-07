@@ -1,64 +1,77 @@
-import 'package:app_manda_fresh/constant/colors.dart';
+import 'package:app_manda_fresh/pages/dashboard.dart';
+import 'package:app_manda_fresh/widget/text_field_search.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
   @override
-  State<HomePage> createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage > {
+  int _selectedIndex = 0;
+
+  static const List<Widget> _widgetOptions = <Widget>[
+    DashboardPage(),
+    Text(
+      'Search Page',
+      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+    ),
+    Text(
+      'Profile Page',
+      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+    ),
+    Text(
+      'Settings Page',
+      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+    ),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return   Scaffold(
-      appBar: AppBar(
-        title:const Text(""),
-      ),
-      body:   Padding(
-        padding: const  EdgeInsets.all(10),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Expanded(
-                child: TextField(
-                  decoration: InputDecoration(
-                    labelText: "Recherche...",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0), // Bordure arrondie
-                      borderSide:  BorderSide(
-                        color: greenColor, // Couleur de la bordure
-                        width: 1.0, // Épaisseur de la bordure
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0), // Bordure arrondie
-                    borderSide:  BorderSide(
-                      color: greenColor, // Couleur de la bordure quand le champ est focalisé
-                      width: 2.0, // Épaisseur de la bordure
-                    ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.0), // Bordure arrondie
-                  borderSide: BorderSide(
-                    color: greyColor, // Couleur de la bordure quand le champ est désactivé
-                    width: 1.0, // Épaisseur de la bordure
-                  ),
-              ),
-                    contentPadding:  const EdgeInsets.symmetric(horizontal: 16.0),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 16), // Espacement entre le champ de recherche et l'icône
-              const IconButton(
-                icon: Icon(Icons.filter_list),
-                onPressed: null,
-              ),
-              ],
-            )
-          ],
+    return Scaffold(
+      appBar: null,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+               const TextFielSearch(),
+              _widgetOptions.elementAt(_selectedIndex),
+            ],
+          ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.kitchen),
+            label: 'Compartiment',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_bag),
+            label: 'Produit',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        
+        onTap: _onItemTapped,
       ),
     );
   }

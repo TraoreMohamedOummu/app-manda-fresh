@@ -8,15 +8,11 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage > {
+class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
-  static  List<Widget> _widgetOptions =  <Widget>[
+  static List<Widget> _widgetOptions = <Widget>[
     DashboardPage(),
-    Text(
-      'Search Page',
-      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-    ),
     PageProduits(),
     Text(
       'Settings Page',
@@ -35,20 +31,18 @@ class _HomePageState extends State<HomePage > {
     return Scaffold(
       appBar: null,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child:  Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                 const TextFielSearch(),
-                _widgetOptions.elementAt(_selectedIndex),
-              ],
-            ),
-          )
-        )
+          child: SingleChildScrollView(
+              child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const TextFielSearch(),
+            _widgetOptions.elementAt(_selectedIndex),
+          ],
         ),
+      ))),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
@@ -59,14 +53,13 @@ class _HomePageState extends State<HomePage > {
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_bag),
             label: 'Produit',
-            
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.kitchen),
             label: 'Compartiment',
           ),
           BottomNavigationBarItem(
-          icon: Icon(Icons.shopping_bag),
+            icon: Icon(Icons.shopping_bag),
             label: 'Produit',
           ),
           BottomNavigationBarItem(
@@ -75,7 +68,6 @@ class _HomePageState extends State<HomePage > {
           ),
         ],
         currentIndex: _selectedIndex,
-        
         onTap: _onItemTapped,
       ),
     );

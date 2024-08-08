@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage> {
     PageProduits(),
     PageCompartiment(),
     Text(
-      'Settings Page',
+      'Profile Page',
       style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
     ),
   ];
@@ -60,11 +60,7 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.kitchen),
             label: 'Compartiment',
           ),
-          BottomNavigationBarItem(
-
-            icon: Icon(Icons.shopping_bag),
-            label: 'Produit',
-          ),
+ 
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Profile',

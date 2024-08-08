@@ -37,7 +37,6 @@ class _PageProduitsState extends State<PageProduits> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-
         _buildCompartimentHeader(
           'Compartiment froid',
           _isExpandedFroid,
@@ -58,98 +57,7 @@ class _PageProduitsState extends State<PageProduits> {
         ),
         _buildAnimatedContainer(
           _isExpandedChaud,
-          _buildChaudContent(),),
-
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-             Text(
-              'Compartiment froid',
-              style: TextStyle(fontSize: 20, color: blackColor,
-               fontWeight: FontWeight.bold),
-            ),
-            IconButton(
-              icon: Icon(
-                  _isExpandedFroid ? Icons.arrow_drop_up : Icons.arrow_drop_down, color: greyColor,),
-              onPressed: () {
-                setState(() {
-                  _isExpandedFroid = !_isExpandedFroid;
-                });
-              },
-            ),
-          ],
-        ),
-        AnimatedContainer(
-          duration: const  Duration(milliseconds: 300),
-          height: _isExpandedFroid ? 400 : 0,
-          child: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Température actuelle',
-                      style: TextStyle(fontSize: 18, color: blackColor,
-               fontWeight: FontWeight.bold),
-                    ),
-                    Row(
-                      children: [
-                        const Icon(Icons.thermostat),
-                        Text(
-                          "3°C",
-                          style: TextStyle(fontSize: 15, color: blackColor,
-               fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                     Text(
-                      'Liste des produits',
-                      style: TextStyle(fontSize: 18, color: blackColor,
-               fontWeight: FontWeight.bold),
-                    ),
-                    IconButton(
-                      icon: Icon(_isExpandedFroidProduits
-                          ? Icons.arrow_drop_up
-                          : Icons.arrow_drop_down,color: greyColor,),
-                      onPressed: () {
-                        setState(() {
-                          _isExpandedFroidProduits = !_isExpandedFroidProduits;
-                        });
-                      },
-                    ),
-                  ],
-                ),
-                AnimatedContainer(
-                  duration: const  Duration(milliseconds: 100),
-                  height: _isExpandedFroidProduits ? 400 : 0,
-                  child: GridView.builder(
-                    
-                    itemCount: produits.length,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisSpacing: 5,
-                      mainAxisSpacing: 5,
-                      crossAxisCount: 4, // Nombre de colonnes
-                      childAspectRatio: 1.0,
-                    ),
-                    itemBuilder: (context, index) {
-                      final produit = produits[index];
-                      return CelluleProduitsWidget(
-                        index: index+1,
-                        imagePath: produit['imagePath']!,
-                        name: produit['name']!,
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
+          _buildChaudContent(),
         ),
       ],
     );

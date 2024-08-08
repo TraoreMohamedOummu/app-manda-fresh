@@ -1,3 +1,4 @@
+import 'package:app_manda_fresh/constant/colors.dart';
 import 'package:app_manda_fresh/widget/numero_produit.dart';
 import 'package:flutter/material.dart';
 
@@ -25,13 +26,14 @@ class _PageProduitsState extends State<PageProduits> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Text(
+             Text(
               'Compartiment froid',
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: 20, color: blackColor,
+               fontWeight: FontWeight.bold),
             ),
             IconButton(
               icon: Icon(
-                  _isExpanded ? Icons.arrow_drop_up : Icons.arrow_drop_down),
+                  _isExpanded ? Icons.arrow_drop_up : Icons.arrow_drop_down, color: greyColor,),
               onPressed: () {
                 setState(() {
                   _isExpanded = !_isExpanded;
@@ -41,24 +43,26 @@ class _PageProduitsState extends State<PageProduits> {
           ],
         ),
         AnimatedContainer(
-          duration: Duration(milliseconds: 300),
+          duration: const  Duration(milliseconds: 300),
           height: _isExpanded ? 400 : 0,
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                Row(
+                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       'Température actuelle',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 18, color: blackColor,
+               fontWeight: FontWeight.bold),
                     ),
                     Row(
                       children: [
-                        Icon(Icons.thermostat),
+                        const Icon(Icons.thermostat),
                         Text(
                           "3°C",
-                          style: TextStyle(fontSize: 15),
+                          style: TextStyle(fontSize: 15, color: blackColor,
+               fontWeight: FontWeight.bold),
                         )
                       ],
                     )
@@ -67,14 +71,15 @@ class _PageProduitsState extends State<PageProduits> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                     Text(
                       'Liste des produits',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 18, color: blackColor,
+               fontWeight: FontWeight.bold),
                     ),
                     IconButton(
                       icon: Icon(_isExpandedProduits
                           ? Icons.arrow_drop_up
-                          : Icons.arrow_drop_down),
+                          : Icons.arrow_drop_down,color: greyColor,),
                       onPressed: () {
                         setState(() {
                           _isExpandedProduits = !_isExpandedProduits;
@@ -84,12 +89,12 @@ class _PageProduitsState extends State<PageProduits> {
                   ],
                 ),
                 AnimatedContainer(
-                  duration: Duration(milliseconds: 100),
+                  duration: const  Duration(milliseconds: 100),
                   height: _isExpandedProduits ? 400 : 0,
                   child: GridView.builder(
                     
                     itemCount: produits.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisSpacing: 5,
                       mainAxisSpacing: 5,
                       crossAxisCount: 4, // Nombre de colonnes

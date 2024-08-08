@@ -1,8 +1,7 @@
+import 'package:app_manda_fresh/constant/colors.dart';
 import 'package:flutter/material.dart';
 
-// Couleurs (tu peux les adapter selon tes besoins)
-const greenColor = Colors.green;
-const blackColor = Colors.black;
+
 
 // Widget Cellule
 class CelluleWidget extends StatelessWidget {

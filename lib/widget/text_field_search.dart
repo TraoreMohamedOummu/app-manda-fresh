@@ -25,7 +25,7 @@ class TextFielSearch extends StatelessWidget {
                       color: greenColor, // Couleur de la bordure quand le champ est focalisé
                       width: 2.0, // Épaisseur de la bordure
                     ),
-                  ),
+                    ),
                   enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5.0), // Bordure arrondie
                   borderSide: BorderSide(

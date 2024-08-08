@@ -1,3 +1,4 @@
+import 'package:app_manda_fresh/pages/compartiments.dart';
 import 'package:app_manda_fresh/pages/dashboard.dart';
 import 'package:app_manda_fresh/pages/produits.dart';
 import 'package:app_manda_fresh/widget/text_field_search.dart';
@@ -14,6 +15,7 @@ class _HomePageState extends State<HomePage> {
   static List<Widget> _widgetOptions = <Widget>[
     DashboardPage(),
     PageProduits(),
+    PageCompartiment(),
     Text(
       'Settings Page',
       style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
@@ -59,6 +61,7 @@ class _HomePageState extends State<HomePage> {
             label: 'Compartiment',
           ),
           BottomNavigationBarItem(
+
             icon: Icon(Icons.shopping_bag),
             label: 'Produit',
           ),

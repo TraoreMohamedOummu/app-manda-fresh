@@ -1,5 +1,4 @@
 import 'package:app_manda_fresh/constant/colors.dart';
-import 'package:app_manda_fresh/pages/home.dart';
 import 'package:app_manda_fresh/pages/onboarding.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';

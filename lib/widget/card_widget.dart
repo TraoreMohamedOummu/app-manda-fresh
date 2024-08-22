@@ -20,8 +20,8 @@ class CardWidget extends StatelessWidget {
        borderRadius: BorderRadius.circular(10.0), // Rayons des coins de la bordure
       ),
       child: SizedBox(
-              width: 170,
-              height: 170,
+              width: 160,
+              height: 160,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -35,8 +35,7 @@ class CardWidget extends StatelessWidget {
                   const SizedBox(height: 10,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      
+                    children: [                      
                       Text(temperature.toString() + " °C", style: TextStyle(
                     color: blackColor,
                     fontSize: 25,

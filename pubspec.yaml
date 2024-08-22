@@ -40,6 +40,7 @@ dependencies:
   get: ^4.6.6
   form_builder_validators: ^11.0.0
   flutter_svg: ^2.0.10+1
+  http: ^1.2.2
 
 
 dev_dependencies:

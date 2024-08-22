@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:app_manda_fresh/pages/dashboard.dart';
 import 'package:app_manda_fresh/pages/home.dart';
 import 'package:app_manda_fresh/pages/login.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,6 +12,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -280,7 +284,7 @@ class _SignupState extends State<Signup> {
                           Padding(
                             padding: EdgeInsets.only(bottom: 20),
                             child: FormBuilderTextField(
-                              name: "password_manda",
+                              name: "motDePasseDispositif",
                               cursorColor: couleurApp,
                               validator: FormBuilderValidators.required(
                                   errorText: "Veillez remplir ce champ"),
@@ -343,10 +347,10 @@ class _SignupState extends State<Signup> {
                             padding: EdgeInsets.only(
                                 top: 20, left: 20, right: 20, bottom: 20),
                             child: GFButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 if (_formKey.currentState?.saveAndValidate() ??
                                     false) {
-                                  Get.to(HomePage());
+                                  _submitForm(); // Corrected method call
                                   // Handle form submission
                                 } else {
                                   // Handle validation errors
@@ -446,6 +450,105 @@ class _SignupState extends State<Signup> {
       ),
     );
   }
+
+void _submitForm() async {
+  try {
+    if (_formKey.currentState?.saveAndValidate() ?? false) {
+      final formData = _formKey.currentState?.value;
+      final dateNaissance = formData?['dateNaissance'];
+      final formattedDateNaissance = dateNaissance != null
+          ? '${dateNaissance.year.toString().padLeft(4, '0')}-${dateNaissance.month.toString().padLeft(2, '0')}-${dateNaissance.day.toString().padLeft(2, '0')}'
+          : null;
+      final identifiant = formData?['identifiant'];
+      final motDePasseDispositif = formData?['motDePasseDispositif'];
+
+      // Étape 1: Obtenir la liste des dispositifs
+      final dispositifsResponse = await http.get(
+        Uri.parse('https://mcellou.pythonanywhere.com/api/dispositifs/'),
+      );
+
+      if (dispositifsResponse.statusCode == 200) {
+        final List dispositifs = jsonDecode(dispositifsResponse.body);
+        final dispositifTrouve = dispositifs.firstWhere(
+          (dispositif) =>
+              dispositif['id'] == identifiant &&
+              dispositif['mot_de_passe_dispositif'] == motDePasseDispositif,
+          orElse: () => null,
+        );
+
+        if (dispositifTrouve != null) {
+          // Étape 2: Inscription de l'utilisateur
+          final utilisateurResponse = await http.post(
+            Uri.parse('https://mcellou.pythonanywhere.com/api/utilisateurs/'),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: jsonEncode(<String, dynamic>{
+              'nom': formData?['nom'],
+              'prenom': formData?['prenom'],
+              'profession': formData?['profession'],
+              'email': formData?['email'],
+              'mot_de_passe': formData?['password'],
+              'date_de_naissance': formattedDateNaissance,
+              'cree_a': DateTime.now().toIso8601String(),
+              'modifie_a': DateTime.now().toIso8601String(),
+            }),
+          );
+
+          if (utilisateurResponse.statusCode == 200) {
+            final utilisateurData = jsonDecode(utilisateurResponse.body);
+
+            if (utilisateurData.containsKey('id')) {
+              final utilisateurId = utilisateurData['id'];
+
+              // Étape 3: Lier l'utilisateur au dispositif
+              final utilisateurDispositifResponse = await http.post(
+                Uri.parse(
+                    'https://mcellou.pythonanywhere.com/api/utilisateurs-dispositifs'),
+                headers: <String, String>{
+                  'Content-Type': 'application/json; charset=UTF-8',
+                },
+                body: jsonEncode(<String, dynamic>{
+                  'cree_a': DateTime.now().toIso8601String(),
+                  'modifie_a': DateTime.now().toIso8601String(),
+                  'utilisateur': utilisateurId,
+                  'dispositif': identifiant,
+                }),
+              );
+
+              if (utilisateurDispositifResponse.statusCode == 200) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Inscription réussie !')),
+                );
+                Get.offAll(DashboardPage()); // Redirect to the Dashboard
+              } else {
+                print('Erreur lors de la liaison avec le dispositif : ${utilisateurDispositifResponse.statusCode}');
+                print('Réponse : ${utilisateurDispositifResponse.body}');
+              }
+            } else {
+              print('Erreur lors de l\'inscription utilisateur : Pas d\'ID trouvé');
+            }
+          } else {
+            print('Erreur lors de l\'inscription utilisateur : ${utilisateurResponse.statusCode}');
+            print('Réponse : ${utilisateurResponse.body}');
+          }
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Identifiant ou mot de passe du dispositif incorrect')),
+          );
+        }
+      } else {
+        print('Erreur lors de la récupération des dispositifs : ${dispositifsResponse.statusCode}');
+        print('Réponse : ${dispositifsResponse.body}');
+      }
+    } else {
+      print('Formulaire invalide');
+    }
+  } catch (e) {
+    print('Exception : $e');
+  }
+}
+
 
   Widget buildSocial({required Image image}) {
     return Container(

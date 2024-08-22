@@ -38,6 +38,7 @@ class _LoginState extends State<Login> {
                       "S'authentifier",
                       style: TextStyle(
                         fontSize: 30,
+                        fontWeight: FontWeight.bold
                       ),
                     ),
                   ),

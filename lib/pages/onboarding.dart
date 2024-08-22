@@ -51,96 +51,101 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(top: 8, right: 8),
-              child: Align(
-                alignment: Alignment.bottomRight,
-                child: GestureDetector(
-                  onTap: () {
-                    Get.to(Login());
-                  },
-                  child: Text(
-                    "Sauter",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue,
-                      fontSize: 15,
-                      decoration: TextDecoration.none,
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Container(
+                width: double.infinity,
+                color: Colors.white,
+                padding: const EdgeInsets.all(8.0),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.to(Login());
+                    },
+                    child: Text(
+                      "Sauter",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue,
+                        fontSize: 15,
+                        decoration: TextDecoration.none,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            Expanded(
-              child: PageView(
-                controller: _pageController,
-                onPageChanged: (int index) {
-                  setState(() {
-                    currentPageIndex = index;
-                  });
-                },
-                children: [
-                  OnboardingPage(
-                    image: "assets/images/onboarding_1.svg",
-                    titre: "Bienvenue sur [Nom de l'application]",
-                    sousTitre:
-                        "Découvrez notre solution innovante de conservation d'aliments. Gérez vos aliments de manière optimale avec notre dispositif combinant une chambre froide et une chambre chaude, contrôlées directement depuis votre smartphone.",
-                  ),
-                  OnboardingPage(
-                    image: "assets/images/onboarding_2.svg",
-                    titre: "Gérez vos Cellules",
-                    sousTitre:
-                        "Attribuez des numéros, noms et prix à chaque cellule de votre dispositif. Organisez vos aliments pour une gestion efficace et optimisée.",
-                  ),
-                  OnboardingPage(
-                    image: "assets/images/onboarding_3.svg",
-                    titre: "Commandez Facilement",
-                    sousTitre:
-                        "Grâce à notre interface IA avancée, il vous suffit de dire, par exemple, 'Je veux produit numéro 5'. Les informations du produit s'affichent instantanément sur l'écran pour validation et paiement.",
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              color: Colors.white,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  (currentPageIndex == 0)
-                      ? SizedBox()
-                      : GestureDetector(
-                          onTap: previousPage,
-                          child: buildFleche(false),
-                        ),
-                  Row(
-                    children: List.generate(
-                      totalDots,
-                      (index) => buildDot(index == currentPageIndex),
+              Expanded(
+                child: PageView(
+                  controller: _pageController,
+                  onPageChanged: (int index) {
+                    setState(() {
+                      currentPageIndex = index;
+                    });
+                  },
+                  children: [
+                    OnboardingPage(
+                      image: "assets/images/agriculteur.png",
+                      titre: "Bienvenue sur MandaFresh",
+                      sousTitre:
+                          "Présentation de la solution pour conserver les aliments en utilisant un dispositif combinant chambre froide et chaude, contrôlable via smartphone",
                     ),
-                  ),
-                  (currentPageIndex == totalDots - 1)
-                      ? ElevatedButton(
-                          onPressed: () {
-                            Get.to(Login());
-                          },
-                          child: Text("S'authentifier"))
-                      : GestureDetector(
-                          onTap: nextPage,
-                          child: buildFleche(true),
-                        ),
-                ],
+                    OnboardingPage(
+                      image: "assets/images/dispositif_appli.png",
+                      titre: "Gérez vos Cellules",
+                      sousTitre:
+                          "Configuration des cellules du dispositif avec des numéros, noms et prix pour organiser les aliments.",
+                    ),
+                    OnboardingPage(
+                      image: "assets/images/aliments.png",
+                      titre: "Vos aliments conservés",
+                      sousTitre:
+                          "Maintenez la qualité et les nutriments de vos aliments, tout en réduisant le gaspillage grâce à une gestion optimale",
+                    ),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(
-              height: 40,
-              child: ColoredBox(
+              Container(
                 color: Colors.white,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    (currentPageIndex == 0)
+                        ? SizedBox()
+                        : GestureDetector(
+                            onTap: previousPage,
+                            child: buildFleche(false),
+                          ),
+                    Row(
+                      children: List.generate(
+                        totalDots,
+                        (index) => buildDot(index == currentPageIndex),
+                      ),
+                    ),
+                    (currentPageIndex == totalDots - 1)
+                        ? ElevatedButton(
+                            onPressed: () {
+                              Get.to(Login());
+                            },
+                            child: Text("S'authentifier"))
+                        : GestureDetector(
+                            onTap: nextPage,
+                            child: buildFleche(true),
+                          ),
+                  ],
+                ),
               ),
-            )
-          ],
+              SizedBox(
+                height: 40,
+                child: ColoredBox(
+                  color: Colors.white,
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -213,11 +218,11 @@ class OnboardingPage extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.only(top: 15),
+                    padding: EdgeInsets.only(top: 20, left: 10, right: 10),
                     child: Container(
-                      child: SvgPicture.asset(
+                      child: Image.asset(
                         image,
-                        height: 380,
+                        height: 360,
                         fit: BoxFit.cover,
                       ),
                     ),

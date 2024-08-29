@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class CardWidget extends StatelessWidget {
   final String name;
-  final int temperature;
+  final String temperature;
   const CardWidget({super.key, required this.name, required this.temperature});
 
   
@@ -20,8 +20,8 @@ class CardWidget extends StatelessWidget {
        borderRadius: BorderRadius.circular(10.0), // Rayons des coins de la bordure
       ),
       child: SizedBox(
-              width: 170,
-              height: 170,
+              width: 150,
+              height: 160,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -35,11 +35,10 @@ class CardWidget extends StatelessWidget {
                   const SizedBox(height: 10,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      
+                    children: [                      
                       Text(temperature.toString() + " °C", style: TextStyle(
                     color: blackColor,
-                    fontSize: 25,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold
                     ),),
                     Icon(Icons.thermostat, size: 30, color: greenColor,),

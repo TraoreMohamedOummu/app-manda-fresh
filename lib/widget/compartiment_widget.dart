@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 class CompartmentWidget extends StatelessWidget {
   final String title;
+  final String temperature;
   final bool isExpandedIcon; 
   final bool isExpandedTemperateur;
   final bool isExpandedEtatCircuit;
@@ -27,12 +28,12 @@ class CompartmentWidget extends StatelessWidget {
 
   final void Function(bool)? onChangePlage;
   final void Function(bool)? onChangeAdaptive;
-  final  Function(bool)? onChangeEtat;
+  final Function(bool)? onChangeEtat;
 
-
-   CompartmentWidget({
+  CompartmentWidget({
     super.key,
     required this.title,
+    required this.temperature,
     required this.isExpandedIcon,
     required this.isExpandedTemperateur,
     required this.isExpandedEtatCircuit,
@@ -48,7 +49,7 @@ class CompartmentWidget extends StatelessWidget {
     required this.onPressedTemperature,
     required this.onChangePlage,
     required this.onChangeAdaptive,
-    required  this.onChangeEtat
+    required this.onChangeEtat,
   });
 
   @override
@@ -59,7 +60,7 @@ class CompartmentWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-              Text(
+            Text(
               title,
               style: TextStyle(
                 fontSize: 20,
@@ -69,64 +70,87 @@ class CompartmentWidget extends StatelessWidget {
             ),
             IconButton(
               icon: Icon(
-                  isExpandedIcon ? Icons.arrow_drop_up : Icons.arrow_drop_down,
-                  color: greyColor,
+                isExpandedIcon ? Icons.arrow_drop_up : Icons.arrow_drop_down,
+                color: greyColor,
               ),
-              onPressed: onExpandedIcon
+              onPressed: onExpandedIcon,
             ),
           ],
         ),
-        AnimatedContainer(
-          duration: const  Duration(milliseconds: 300),
-          height: isExpandedIcon? 450 : 0,
-          child: Column(
-            children: <Widget>[
-              SubTitleCompartimentWidget(
-                isExpanded: isExpandedTemperateur,
-                title: "Temperature",
-                onPressed: onPressedTemperature
-              ),
-              AnimatedContainer(
-                duration: const  Duration(milliseconds: 100),
-                height: isExpandedTemperateur? 400 : 0,
-                child:  Column(
+        Visibility(
+          visible: isExpandedIcon,
+          child: AnimatedCrossFade(
+            firstChild: SizedBox.shrink(), // No content when collapsed
+            secondChild: Column(
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                     SwitchTemperateurWidget(
-                      isSlider: isSliderPlage,
-                      title: ("Plage Temperature"),
-                      onChange: onChangePlage,
-                     ),
-                     isSliderPlage ? PlageTemperatureWidget(
-                        minController: minControllerPlage,
-                        maxController: minControllerPlage,
-                        isEnabled: true,
-                      ) : Container(),
-                    SwitchTemperateurWidget(
-                      isSlider: isSliderAdaptive,
-                      title: ("Temperature adaptive"),
-                      onChange: onChangeAdaptive,
+                    Text(
+                      "Temperature actuelle",
+                      style: TextStyle(fontSize: 18),
                     ),
-                    isSliderAdaptive ? PlageTemperatureWidget(
-                        minController: minControllerAdaptive,
-                        maxController: maxControllerAdaptive,
-                        isEnabled: false,
-                      ) : Container(),
-                    SubTitleCompartimentWidget(
-                    isExpanded: isExpandedEtatCircuit,
-                    title: "Etat du circuit",
-                    onPressed: onPressedEtatCircuit,
-                    numberPadding: 0,
+                    Row(
+                      children: [
+                        Icon(Icons.thermostat),
+                        Text(
+                          temperature,
+                          style: TextStyle(fontSize: 15),
+                        ),
+                      ],
                     ),
-                    isExpandedEtatCircuit ? SwitchEtatCircuitWidget(
-                      isSlider: isSliderEtat,
-                      title: "Etat du circuit",
-                      onChange: onChangeEtat,
-                    ) : Container()
                   ],
-                )
-              ),
-               
-            ],
+                ),
+                SubTitleCompartimentWidget(
+                  isExpanded: isExpandedTemperateur,
+                  title: "Temperature",
+                  onPressed: onPressedTemperature
+                ),
+                Visibility(
+                  visible: isExpandedTemperateur,
+                  child: Column(
+                    children: [
+                       SwitchTemperateurWidget(
+                        isSlider: isSliderPlage,
+                        title: ("Plage Temperature"),
+                        onChange: onChangePlage,
+                       ),
+                       isSliderPlage ? PlageTemperatureWidget(
+                          minController: minControllerPlage,
+                          maxController: maxControllerPlage,
+                          isEnabled: true,
+                        ) : Container(),
+                      SwitchTemperateurWidget(
+                        isSlider: isSliderAdaptive,
+                        title: ("Temperature adaptive"),
+                        onChange: onChangeAdaptive,
+                      ),
+                      isSliderAdaptive ? PlageTemperatureWidget(
+                          minController: minControllerAdaptive,
+                          maxController: maxControllerAdaptive,
+                          isEnabled: false,
+                        ) : Container(),
+                      SubTitleCompartimentWidget(
+                        isExpanded: isExpandedEtatCircuit,
+                        title: "Etat du circuit",
+                        onPressed: onPressedEtatCircuit,
+                        numberPadding: 0,
+                      ),
+                      Visibility(
+                        visible: isExpandedEtatCircuit,
+                        child: SwitchEtatCircuitWidget(
+                          isSlider: isSliderEtat,
+                          title: "Etat du circuit",
+                          onChange: onChangeEtat,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            crossFadeState: isExpandedIcon ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+            duration: const Duration(milliseconds: 300),
           ),
         ),
       ],

@@ -131,49 +131,53 @@ class _PageCompartimentState extends State<PageCompartiment> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        CompartmentWidget(
-          title: "Compartiment Froid",
-          isExpandedIcon: _isExpandedIconFroid,
-          isExpandedTemperateur: _isExpandedTemperateurFroid,
-          isExpandedEtatCircuit: _isExpandedEtatCircuitFoid,
-          isSliderPlage: _isSliderPlageFroid,
-          isSliderAdaptive: _isSliderAdaptiveFroid,
-          isSliderEtat: _isSliderEtatFroid,
-          minControllerPlage: minControllerFroidPlage,
-          maxControllerPlage: maxControllerFroidPlage,
-          minControllerAdaptive: minControllerFroidAdaptive,
-          maxControllerAdaptive: maxControllerFroidAdaptive,
-          onExpandedIcon: _onExpandedIconFroid,
-          onPressedEtatCircuit: _onPressedEtatCircuitFroid,
-          onPressedTemperature: _onPressedTemperatureFroid,
-          onChangeAdaptive: _onChangeFroidAdaptive,
-          onChangePlage: _onChangeFroidPlage,
-          onChangeEtat: _onSliderEtatFroid,
-        ),
-        const Divider(),
-        CompartmentWidget(
-          title: "Compartiment Chaud",
-          isExpandedIcon: _isExpandedIconChaud,
-          isExpandedTemperateur: _isExpandedTemperateurChaud,
-          isExpandedEtatCircuit: _isExpandedEtatCircuitChaud,
-          isSliderPlage: _isSliderPlageChaud,
-          isSliderAdaptive: _isSliderAdaptiveChaud,
-          isSliderEtat: _isSliderEtatChaud,
-          minControllerPlage: minControllerChaudPlage,
-          maxControllerPlage: maxControllerChaudPlage,
-          minControllerAdaptive: minControllerChaudAdaptive,
-          maxControllerAdaptive: maxControllerChaudAdaptive,
-          onExpandedIcon: _onExpandedIconChaud,
-          onPressedEtatCircuit: _onPressedEtatCircuitChaud,
-          onPressedTemperature: _onPressedTemperatureChaud,
-          onChangeAdaptive: _onChangeChaudAdaptive,
-          onChangePlage: _onChangeChaudPlage,
-          onChangeEtat: _onSliderEtatChaud,
-        )
-      ]
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          CompartmentWidget(
+            title: "Compartiment Froid",
+            temperature: "5°c",
+            isExpandedIcon: _isExpandedIconFroid,
+            isExpandedTemperateur: _isExpandedTemperateurFroid,
+            isExpandedEtatCircuit: _isExpandedEtatCircuitFoid,
+            isSliderPlage: _isSliderPlageFroid,
+            isSliderAdaptive: _isSliderAdaptiveFroid,
+            isSliderEtat: _isSliderEtatFroid,
+            minControllerPlage: minControllerFroidPlage,
+            maxControllerPlage: maxControllerFroidPlage,
+            minControllerAdaptive: minControllerFroidAdaptive,
+            maxControllerAdaptive: maxControllerFroidAdaptive,
+            onExpandedIcon: _onExpandedIconFroid,
+            onPressedEtatCircuit: _onPressedEtatCircuitFroid,
+            onPressedTemperature: _onPressedTemperatureFroid,
+            onChangeAdaptive: _onChangeFroidAdaptive,
+            onChangePlage: _onChangeFroidPlage,
+            onChangeEtat: _onSliderEtatFroid,
+          ),
+          const Divider(),
+          CompartmentWidget(
+            title: "Compartiment Chaud",
+                    temperature: "45°c",
+            isExpandedIcon: _isExpandedIconChaud,
+            isExpandedTemperateur: _isExpandedTemperateurChaud,
+            isExpandedEtatCircuit: _isExpandedEtatCircuitChaud,
+            isSliderPlage: _isSliderPlageChaud,
+            isSliderAdaptive: _isSliderAdaptiveChaud,
+            isSliderEtat: _isSliderEtatChaud,
+            minControllerPlage: minControllerChaudPlage,
+            maxControllerPlage: maxControllerChaudPlage,
+            minControllerAdaptive: minControllerChaudAdaptive,
+            maxControllerAdaptive: maxControllerChaudAdaptive,
+            onExpandedIcon: _onExpandedIconChaud,
+            onPressedEtatCircuit: _onPressedEtatCircuitChaud,
+            onPressedTemperature: _onPressedTemperatureChaud,
+            onChangeAdaptive: _onChangeChaudAdaptive,
+            onChangePlage: _onChangeChaudPlage,
+            onChangeEtat: _onSliderEtatChaud,
+          )
+        ]
+      ),
     );
   }
 }

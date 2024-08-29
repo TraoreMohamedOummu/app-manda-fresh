@@ -1,12 +1,14 @@
+import 'package:app_manda_fresh/constant/colors.dart';
 import 'package:app_manda_fresh/widget/numero_produit.dart';
 import 'package:flutter/material.dart';
+import 'package:app_manda_fresh/widget/numero_produit.dart';
 
-class PageProduits extends StatefulWidget {
+class PageCompartimentDeux extends StatefulWidget {
   @override
-  _PageProduitsState createState() => _PageProduitsState();
+  _PageCompartimentDeuxState createState() => _PageCompartimentDeuxState();
 }
 
-class _PageProduitsState extends State<PageProduits> {
+class _PageCompartimentDeuxState extends State<PageCompartimentDeux> {
   bool _isExpandedFroid = true;
   bool _isExpandedFroidProduits = true;
 
